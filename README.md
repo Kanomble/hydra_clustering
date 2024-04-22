@@ -1,5 +1,6 @@
 # Hydra Clustering
 produces log2FoldChange and padj result tables and PCA, Volcano-Plot figures
+
 deseq2_rsem_script.R:
 ```
 Input:
@@ -19,6 +20,7 @@ Output:
      		hydra_all_counts.tsv
 ```
 ## Creating Row Means Normalized Celltype Dataframe
+
 dropseq_final_atlas_analysis.R:
 ```
 Input:
@@ -28,6 +30,7 @@ Output:
 ```
 ## Assigning Unique Genes For Each Celltype
 ### Criteria
+
 - Genes expressed over mean(row) for each Cell-Type
 
 create_sc_atlas_cluster_table.ipynb: 
@@ -49,7 +52,9 @@ Output:
 ```
 ## Plotting Overlaps
 ### Criteria
-- Genes expressed in more than 1 Cell-Types are assigned to non-unique genes	
+
+- Genes expressed in more than 1 Cell-Types are assigned to non-unique genes
+
 get_cluster.R:	
 ```
 Input: 		
@@ -70,6 +75,7 @@ Output:
 			hvaep_GO.png
 ```
 ## Clustering Celltypes
+
 analyze_deseq2:
 ```
 Input:
@@ -120,6 +126,7 @@ Output:
 		volcano_*.png
 ```
 # Gene Enrichment Analysis
+
 gene_enrichment_analysis_preparation.ipynb:
 ```
 Input:
@@ -139,9 +146,11 @@ Output:
 		wild/*
 		ahls/*
   ```
+
 unknown data sources:
 	- ../data/annotation_KO_GO.csv
 	- ../data/hvaepLRv2_kegg_go
 # TODO
+- [ ] add 'mclust', 'umap' to R in docker
 - [ ] add mapping and count procedures
 - [ ] check input files for all functions
