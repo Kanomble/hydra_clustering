@@ -140,7 +140,8 @@ Output:
 		ahls/*
   ```
 unknown data sources:
-	- hvaepLRv2_kegg_go
+	- ../data/annotation_KO_GO.csv
+	- ../data/hvaepLRv2_kegg_go
 # TODO
 - [ ] add mapping and count procedures
 - [ ] check input files for all functions
