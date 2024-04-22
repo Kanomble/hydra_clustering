@@ -1,26 +1,43 @@
 # Hydra Clustering
-deseq2_rsem_script.R: results/deseq2_rsem/tables/*, results/deseq2_rsem/figures/* produces log2FoldChange and padj result tables and PCA, Volcano-Plot figures
-collect_deseq.R: results/deseq2_rsem/: hydra_all_deseq2_lg2.tsv, hydra_all_deseq2_pvalues.tsv, hydra_all_counts.tsv
+produces log2FoldChange and padj result tables and PCA, Volcano-Plot figures
+deseq2_rsem_script.R:
+Input:
+
+Output:
+	results/deseq2_rsem/tables/*
+ 	results/deseq2_rsem/figures/* 
+
+collect_deseq.R:
+Input:
+
+Output:
+	results/deseq2_rsem/: 
+ 		hydra_all_deseq2_lg2.tsv
+   		hydra_all_deseq2_pvalues.tsv
+     		hydra_all_counts.tsv
 
 ## Creating Row Means Normalized Celltype Dataframe
-dropseq_final_atlas_analysis.R: results/processedData/genes_to_cell_type_table.tsf (rowmeans of each gene from each celltype)
+dropseq_final_atlas_analysis.R:
+Input:
+
+Output:
+	results/processedData/genes_to_cell_type_table.tsf (rowmeans of each gene from each celltype)
 
 ## Assigning Unique Genes For Each Celltype
 ### Criteria
 - Genes expressed over mean(row) for each Cell-Type
+
 create_sc_atlas_cluster_table.ipynb: 
 Input:
 	../results/processedData/genes_to_cell_type_table.tsf
-
+	
 Output:
 	../results/processedData/normalized_mean/: 
-	
 		hvaep_cell_type_to_gene_cluster_table.tsf, 
 		hvaep_uniprot_kegg_go.tsf, 
 		hvaep_cell_type_to_gene_cluster_table_just_gos.tsf,
 		hvaep_uniprot_go_cleaned_table.tsf,
 		hvaep_uniprot_go_full_table.tsf
-	
 	../results/deseq2_rsem/:
 		hydra_all_counts_t_to_g.tsv
 		hydra_all_deseq2_lg2_t_to_g.tsv
@@ -39,7 +56,6 @@ Output:
 			hvaep_clustering_normalized.tsv
 			hvaep_clustering_table.tsv
 			hvaep_clustering_table_unique.tsv
-
 		./results/figures/normalized_mean/:
 			hvaep_clustering.png
 			hvaep_GO_lineage_I_superclasses.png
@@ -54,11 +70,9 @@ analyze_deseq2:
 
 Input:
 	./data/rsem_counts/sample_descriptions.csv
-
 	./results/deseq2_rsem/hydra_all_counts_t_to_g.tsv
 	./results/deseq2_rsem/hydra_all_deseq2_lg2_t_to_g.tsv
 	./results/deseq2_rsem/hydra_all_deseq2_pvalues_t_to_g.tsv
-
 	./results/processedData/normalized_mean/hvaep_clustering_table.tsv
 	./results/processedData/normalized_mean/hvaep_uniprot_kegg_go.tsf
 
@@ -76,7 +90,6 @@ Output:
 		kmeans_on_datz.table
 		clt.table
 		clusterings_gfzero.tsv
-		
 	./results/figures/normalized_mean/:
 		celltype_ttest_updown_cut.png
 		celltype_ttest_clustered.png
@@ -121,5 +134,9 @@ Output:
 		temp/*
 		wild/*
 		ahls/*
-unknown data:
+  
+unknown data sources:
 	- hvaepLRv2_kegg_go
+# TODO
+- [ ] add mapping and count procedures
+- [ ] check input files for all functions
