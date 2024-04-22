@@ -1,14 +1,15 @@
 # Hydra Clustering
 produces log2FoldChange and padj result tables and PCA, Volcano-Plot figures
 deseq2_rsem_script.R:
-'''
+```
 Input:
 
 Output:
 	results/deseq2_rsem/tables/*
  	results/deseq2_rsem/figures/* 
-'''
+```
 collect_deseq.R:
+```
 Input:
 
 Output:
@@ -16,19 +17,21 @@ Output:
  		hydra_all_deseq2_lg2.tsv
    		hydra_all_deseq2_pvalues.tsv
      		hydra_all_counts.tsv
-
+```
 ## Creating Row Means Normalized Celltype Dataframe
 dropseq_final_atlas_analysis.R:
+```
 Input:
 
 Output:
 	results/processedData/genes_to_cell_type_table.tsf (rowmeans of each gene from each celltype)
-
+```
 ## Assigning Unique Genes For Each Celltype
 ### Criteria
 - Genes expressed over mean(row) for each Cell-Type
 
 create_sc_atlas_cluster_table.ipynb: 
+```
 Input:
 	../results/processedData/genes_to_cell_type_table.tsf
 	
@@ -43,11 +46,12 @@ Output:
 		hydra_all_counts_t_to_g.tsv
 		hydra_all_deseq2_lg2_t_to_g.tsv
 		hydra_all_deseq2_pvalues_t_to_g.tsv
-
+```
 ## Plotting Overlaps
 ### Criteria
 - Genes expressed in more than 1 Cell-Types are assigned to non-unique genes	
 get_cluster.R:	
+```
 Input: 		
 		./results/processedData/normalized_mean/hvaep_cell_type_to_gene_cluster_table.tsf
 		./results/processedData/normalized_mean/hvaep_uniprot_kegg_go.tsf
@@ -64,11 +68,10 @@ Output:
 			hvaep_GO_celltype.png
 			hvaep_ribosomes.png
 			hvaep_GO.png
-
-
+```
 ## Clustering Celltypes
 analyze_deseq2:
-
+```
 Input:
 	./data/rsem_counts/sample_descriptions.csv
 	./results/deseq2_rsem/hydra_all_counts_t_to_g.tsv
@@ -115,10 +118,10 @@ Output:
 		cluster_umap.png
 		experiments_pca.png
 		volcano_*.png
-
+```
 # Gene Enrichment Analysis
 gene_enrichment_analysis_preparation.ipynb:
-
+```
 Input:
 	../results/deseq2_rsem/tables/*
 		EcoKD1_Eco1KD_B8_vs_control_B8_results.csv
@@ -135,7 +138,7 @@ Output:
 		temp/*
 		wild/*
 		ahls/*
-  
+  ```
 unknown data sources:
 	- hvaepLRv2_kegg_go
 # TODO
