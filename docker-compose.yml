@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  r_studio_docker_compose:
+    image: kanomble/deseq2:2.0
+    environment:
+      - PASSWORD=****
+      - ADD=shiny
+    volumes:
+      - .:/home/rstudio
+    ports:
+      - "8787:8787"
+      - "3838:3838"
+  jupyter_notebook:
+    image: kanomble/pythonblast:1.0
+    command:  sh -c "jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root"
+    volumes:
+      - .:/blast/applications
+    ports:
+      - "8888:8888"
