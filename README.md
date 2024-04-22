@@ -1,12 +1,13 @@
 # Hydra Clustering
 produces log2FoldChange and padj result tables and PCA, Volcano-Plot figures
 deseq2_rsem_script.R:
+'''
 Input:
 
 Output:
 	results/deseq2_rsem/tables/*
  	results/deseq2_rsem/figures/* 
-
+'''
 collect_deseq.R:
 Input:
 
