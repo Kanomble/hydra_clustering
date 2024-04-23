@@ -147,6 +147,25 @@ Output:
 		ahls/*
   ```
 
+# Plotting TTest Clusterings
+
+plotting_clusterings.ipynb
+```
+Input:
+	../results/processedData/normalized_mean/:
+		ttest_all_statistic.table
+		ttest_all_pvalue.table
+		ttest_all_query_number.table
+		ttest_all_target_number.table
+Output:
+	../results/figures/normalized_mean/:
+		supercluster_ttest.jpg
+		ectoderm_ttest.jpg
+		endoderm_ttest.jpg
+		interstital_ttest.jpg
+		l_supercluster_ttest.jpg
+		test.jpg
+```
 unknown data sources:
 	- ../data/annotation_KO_GO.csv
 	- ../data/hvaepLRv2_kegg_go
