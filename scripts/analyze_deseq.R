@@ -213,14 +213,13 @@ if ( unique.celltype ) clt <- cltu
 sum(cltu$C_neuron,na.rm=TRUE)
 write.table(x=cltu,file="./results/processedData/normalized_mean/unique_celltypes.table",quote = FALSE, sep = ';')
 
-## View by Siebert et al. cell type data
-
 ## prepare T/F table from Siebert et al. clustering
 clt.table <- clt[,2:(ncol(clt))]
 clt.table[is.na(clt.table)] <- 0
 clt.table <- apply(clt.table, 2, as.logical)
 
 ## use only cell types with at least 1 unique gene
+## sum over columns and check if summation value is greater than 0
 clt.table <- clt.table[,apply(clt.table,2,sum) > 0]
 
 ## add "NA"
