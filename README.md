@@ -1,4 +1,23 @@
 # Hydra Clustering
+
+## Mapping Procedure
+
+HydraMapping/sortmerna_on_trimmed_reads.py
+```
+Input: trimmed reads directory
+
+Output: fastq files with reads mapped on rRNA (rRNA_fwd/rRNA_rev) and reads that did not mapped on rRNA (nonrRNA_fwd/nonrRNA_rev),
+        the nonrRNA readfiles are subsequently piped to the BBDUK/repair.sh shell script to remove singletons and empty lines produced 
+        by the SortMeRNA tool, the reads for the STAR mapping procedure are placed in the cleaned_reads sub-directory.
+```
+HydraMapping/star_rsem_on_sortmerna_results.py
+```
+Input: trimmed, nonrRNA repaired reads in cleaned_reads sub-directory
+
+Output: mapping BAM files and rsem count files as well as statistics for counting
+```
+
+## Preparation For Clustering Analysis
 produces log2FoldChange and padj result tables and PCA, Volcano-Plot figures
 
 deseq2_rsem_script.R:

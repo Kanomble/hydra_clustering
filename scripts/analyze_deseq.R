@@ -14,18 +14,18 @@ options(stringsAsFactors=FALSE)
 ### PATHS ###
 
 ## input paths
-resp <- file.path("results/deseq2_rsem/") ## deseq2 results
-figp <- file.path("results/figures/normalized_mean/")
-datp <- file.path("results/processedData/normalized_mean/")
+resp <- file.path("results/deseq2_rsem_sortmerna/") ## deseq2 results
+figp <- file.path("results/figures/normalized_mean_sortmerna/")
+datp <- file.path("results/processedData/normalized_mean_sortmerna/")
 
-expf <- file.path("data/rsem_counts/sample_descriptions.csv")
-rawf <- file.path("results/deseq2_rsem/hydra_all_counts_t_to_g.tsv") #result/deseq2_rsem/ # _t_to_g
-datf <- file.path("results/deseq2_rsem/hydra_all_deseq2_lg2_t_to_g.tsv") # 
-pvlf <- file.path("results/deseq2_rsem/hydra_all_deseq2_pvalues_t_to_g.tsv") # _t_to_g
+expf <- file.path("data/rsem_counts_after_sortmerna/sample_descriptions.csv")
+rawf <- file.path("results/deseq2_rsem_sortmerna/hydra_all_counts_t_to_g.tsv") #result/deseq2_rsem/ # _t_to_g
+datf <- file.path("results/deseq2_rsem_sortmerna/hydra_all_deseq2_lg2_t_to_g.tsv") # 
+pvlf <- file.path("results/deseq2_rsem_sortmerna/hydra_all_deseq2_pvalues_t_to_g.tsv") # _t_to_g
 
 ## annotation
-cltf <- file.path("./results/processedData/normalized_mean/hvaep_clustering_table.tsv") #cltf <- file.path(datp,"siebert19_clustering_table.tsv") # cell types
-gof <- file.path("./results/processedData/normalized_mean/hvaep_uniprot_kegg_go.tsf") #gof <- file.path(datp,"aepLRv2_kegg_go.tsv") # KEGG/GO
+cltf <- file.path("./results/processedData/normalized_mean_sortmerna/hvaep_clustering_table.tsv") #cltf <- file.path(datp,"siebert19_clustering_table.tsv") # cell types
+gof <- file.path("./results/processedData/normalized_mean_sortmerna/hvaep_uniprot_kegg_go.tsf") #gof <- file.path(datp,"aepLRv2_kegg_go.tsv") # KEGG/GO
 
 #anf <- file.path("./data/new_mapping/") #anf <- file.path(dath, "originalData", "aepLRv2_pfam_sp_nr.tsv") # Siebert et al
 
@@ -33,8 +33,8 @@ gof <- file.path("./results/processedData/normalized_mean/hvaep_uniprot_kegg_go.
 
 ## data set filter: remove some redundant comparisons
 ## data order: 
-selected.data <- c("22.C_vs_18.C","12.C_vs_18.C","08.C_vs_18.C","Wild_vs_GF","Cvbct_vs_GF","Conventionalized_vs_GF",
-                   "Eco1KD_B8_vs_control_B8","3OHC12_vs_control","3OC12_vs_control")
+selected.data <- c("Wild_vs_GF","Cvbct_vs_GF","Conventionalized_vs_GF",
+                   "3OHC12_vs_control","3OC12_vs_control","22.C_vs_18.C","12.C_vs_18.C","08.C_vs_18.C","Eco1KD_B8_vs_control_B8") # "22.C_vs_18.C","12.C_vs_18.C","08.C_vs_18.C","Eco1KD_B8_vs_control_B8","3OC12_vs_control"
 #"08.C_vs_18.C", ,"Cvbct_vs_GF","Conventionalized_vs_GF"
 #"12.C_vs_18.C", "12.C_vs_18.C","08.C_vs_18.C"
 #"22.C_vs_18.C"
@@ -68,10 +68,10 @@ got <- read.delim(gof)
 #ann <- read.delim(anf)
 
 # set all values lg2fold changes of dat < -15 and > 15 to NA
-identifier <- dat$ID
-dat[, -1][abs(dat[, -1]) >= 15] <- NA
-dat$ID <- identifier
-pvl[is.na(dat)] <- NA
+#identifier <- dat$ID
+#dat[, -1][abs(dat[, -1]) >= 15] <- NA
+#dat$ID <- identifier
+#pvl[is.na(dat)] <- NA
 
 
 
@@ -211,7 +211,10 @@ if ( unique.celltype ) clt <- cltu
 
 ## test: 412
 sum(cltu$C_neuron,na.rm=TRUE)
-write.table(x=cltu,file="./results/processedData/normalized_mean/unique_celltypes.table",quote = FALSE, sep = ';')
+
+
+outfile_uc <- paste0(datp,"unique_celltypes.table")
+write.table(x=cltu,file=outfile_uc,quote = FALSE, sep = ';')
 
 ## prepare T/F table from Siebert et al. clustering
 clt.table <- clt[,2:(ncol(clt))]
@@ -250,10 +253,15 @@ ovsup <- sortOverlaps(ovs, srt=names(ovsup$num.query[,1]))
 ovsdo <- sortOverlaps(ovs, srt=names(ovsdo$num.query[,1]))
 ovsall <- sortOverlaps(ovs, srt=nsrt)
 
-write.table(x=ovt$statistic,file="./results/processedData/normalized_mean/ttest_all_statistic.table")
-write.table(x=ovt$p.value,file="./results/processedData/normalized_mean/ttest_all_pvalue.table")
-write.table(x=ovt$num.target,file="./results/processedData/normalized_mean/ttest_all_target_number.table")
-write.table(x=ovt$num.query,file="./results/processedData/normalized_mean/ttest_all_query_number.table")
+statistic_file <- paste0(datp, "ttest_all_statistic.table")
+pval_file <- paste0(datp, "ttest_all_pvalue.table")
+target_number_file <- paste0(datp, "ttest_all_target_number.table")
+query_number_file <- paste0(datp, "ttest_all_query_number.table")
+
+write.table(x=ovt$statistic,file=statistic_file)
+write.table(x=ovt$p.value,file=pval_file)
+write.table(x=ovt$num.target,file=target_number_file)
+write.table(x=ovt$num.query,file=query_number_file)
 
 ## order by clustering
 
@@ -280,11 +288,17 @@ for (i in 1:length(ovll))
     if (ncol(ovll[[i]]) == ncol(ovt$p.value)) 
       ovll[[i]] <- ovll[[i]][, new.col, drop = FALSE]
 
+
+statistic_file_sc <- paste0(datp, "ttest_sorted_cut_statistic.table")
+pval_file_sc <- paste0(datp, "ttest_sorted_cut_pvalue.table")
+target_number_file_sc <- paste0(datp, "ttest_sorted_cut_target_number.table")
+query_number_file_sc <- paste0(datp, "ttest_sorted_cut_query_number.table")
+
 ## plot cell type profiles
-write.table(x=ovsc$statistic,file="./results/processedData/normalized_mean/ttest_sorted_cut_statistic.table")
-write.table(x=ovsc$p.value,file="./results/processedData/normalized_mean/ttest_sorted_cut_pvalue.table")
-write.table(x=ovsc$num.target,file="./results/processedData/normalized_mean/ttest_sorted_cut_target_number.table")
-write.table(x=ovsc$num.query,file="./results/processedData/normalized_mean/ttest_sorted_cut_query_number.table")
+write.table(x=ovsc$statistic,file=statistic_file_sc)
+write.table(x=ovsc$p.value,file=pval_file_sc)
+write.table(x=ovsc$num.target,file=target_number_file_sc)
+write.table(x=ovsc$num.query,file=query_number_file_sc)
 
 ## bare w/o legend
 png(file.path(figp,"celltype_ttest_sorted_cut.png"),res=100, units="in",width=ncol(ovsc$p.value)/3+2, height=nrow(ovsc$p.value)/4+1.5)
@@ -464,9 +478,9 @@ cls <- clk$cluster # clustering!
 cls.col <- cls.srt
 names(cls.col) <- cls.srt
 
-write.table(cls,"results/processedData/normalized_mean/kmeans_on_datz.table")
-write.table(datz,"results/processedData/normalized_mean/kmeans_on_datz.table")
-write.table(clt.table,"results/processedData/normalized_mean/clt.table")
+write.table(cls,paste0(datp,"kmeans_on_datz.table"))
+write.table(datz,paste0(datp,"kmeans_on_datz.table"))
+write.table(clt.table,paste0(datp,"clt.table"))
 ## test clustering alternatives
 if ( FALSE ) {
   

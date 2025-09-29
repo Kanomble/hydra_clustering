@@ -3,14 +3,14 @@ library(DESeq2)
 library(DEGreport)
 library(limma)
 # define input file paths
-sample_file <- file.path("data/rsem_counts/sample_descriptions.csv")
-controls_file <- file.path("data/rsem_counts/sample_controls.csv")
+sample_file <- file.path("data/rsem_counts_after_sortmerna/sample_descriptions.csv") # "data/rsem_counts/sample_descriptions_without_temp_oxo.csv"
+controls_file <- file.path("data/rsem_counts_after_sortmerna/sample_controls.csv") # "data/rsem_counts/sample_controls_without_temp_oxo.csv"
 
-input_dir <- "data/rsem_counts/"
-output_dir <- "results/deseq2_rsem/"
+input_dir <- "data/rsem_counts_after_sortmerna/"
+output_dir <- "results/deseq2_rsem_sortmerna/"
 
 # settings
-count_threshold <- 10
+count_threshold <- 20
 
 # read samples file
 samples <- read.csv(sample_file)

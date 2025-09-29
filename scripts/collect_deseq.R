@@ -8,10 +8,10 @@ use.dedup <- TRUE
 ### PATHS: adapt for run on different machine! ###
 
 ## input paths
-datp <-  file.path("results/deseq2_rsem/tables/")
+datp <-  file.path("results/deseq2_rsem_sortmerna/tables/")
 
 ## create output path for results
-outp <- file.path("results/deseq2_rsem/")
+outp <- file.path("results/deseq2_rsem_sortmerna/")
 dir.create(outp, showWarnings=FALSE)
 outfile <- file.path(outp,"hydra_all_deseq2_lg2.tsv")
 outfilep <- file.path(outp,"hydra_all_deseq2_pvalues.tsv")
