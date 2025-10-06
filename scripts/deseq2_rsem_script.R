@@ -32,14 +32,17 @@ for(exp in experiments){
   sampleTable <- data.frame(condition = factor(expSamples$treatment), batch = factor(expSamples$batch))
   rownames(sampleTable) <- colnames(txi.rsem$counts)
   # deseq2 workflow
+  dds <- DESeqDataSetFromTximport(txi.rsem, sampleTable, ~condition)
+  
   if(exp=="HydraRecolonization"){
-    dds <- DESeqDataSetFromTximport(txi.rsem, sampleTable, ~batch+condition)
-  } else {
-    dds <- DESeqDataSetFromTximport(txi.rsem, sampleTable, ~condition)
-  }
+    cat("[*] Removing bad samples from HydraRecolonization data\n")
+    bad_samples <- c("I27673-S1","I27674-S1","I27675-S1","I27678-S1","I27681-S1","I27672-S1")
+    dds <- dds[, !colnames(dds) %in% bad_samples]
+  } 
+   
   keep <- rowSums(counts(dds)) >= count_threshold
   dds <- dds[keep,]
-
+  
   if(exp == "HydraAHL"){
     cat("[*] Releveling To Real Reference\n")
     dds$condition <- relevel(dds$condition, ref = "control")
@@ -51,6 +54,7 @@ for(exp in experiments){
   }
   
   dds <- DESeq(dds)
+
   
   # PCA
   rld <- rlog(dds, blind=TRUE)
