@@ -7,8 +7,13 @@ library(igraph)
 library(RColorBrewer)
 
 # define input file paths
+<<<<<<< HEAD
 sample_file <- file.path("data/rsem_counts_final/sample_descriptions.csv") # "data/rsem_counts/sample_descriptions_without_temp_oxo.csv"
 controls_file <- file.path("data/rsem_counts_final/sample_controls.csv") # "data/rsem_counts/sample_controls_without_temp_oxo.csv"
+=======
+sample_file <- file.path("data/rsem_counts_after_sortmerna/sample_descriptions.csv") # "data/rsem_counts/sample_descriptions_without_temp_oxo.csv"
+controls_file <- file.path("data/rsem_counts_after_sortmerna/sample_controls.csv") # "data/rsem_counts/sample_controls_without_temp_oxo.csv"
+>>>>>>> 48e081fba501e60fd014aea29438ba80e4e67575
 
 input_dir <- "data/rsem_counts_after_sortmerna/"
 output_dir <- "results/deseq2_rsem_sortmerna/"
@@ -39,6 +44,7 @@ for(exp in experiments){
   sampleTable <- data.frame(condition = factor(expSamples$treatment), batch = factor(expSamples$batch))
   rownames(sampleTable) <- colnames(txi.rsem$counts)
   # deseq2 workflow
+<<<<<<< HEAD
   dds <- DESeqDataSetFromTximport(txi.rsem, sampleTable, ~condition)
   
   if(exp=="HydraRecolonization"){
@@ -46,6 +52,13 @@ for(exp in experiments){
     bad_samples <- c("I27673-S1","I27674-S1","I27675-S1","I27678-S1","I27681-S1","I27672-S1")
     dds <- dds[, !colnames(dds) %in% bad_samples]
   } 
+=======
+  if(exp=="HydraRecolonization"){
+    dds <- DESeqDataSetFromTximport(txi.rsem, sampleTable, ~batch+condition)
+  } else {
+    dds <- DESeqDataSetFromTximport(txi.rsem, sampleTable, ~condition)
+  }
+>>>>>>> 48e081fba501e60fd014aea29438ba80e4e67575
   
   keep <- rowSums(counts(dds)) >= count_threshold
   dds <- dds[keep,]
@@ -84,13 +97,18 @@ rownames(combined_matrix) <- combined_matrix$Gene
 combined_matrix$Gene <- NULL
 combined_matrix[is.na(combined_matrix)] <- 0
 
+<<<<<<< HEAD
 bad_samples <- c("I27673-S1","I27674-S1","I27675-S1","I27678-S1","I27681-S1","I27672-S1")
+=======
+# remove batch effects
+>>>>>>> 48e081fba501e60fd014aea29438ba80e4e67575
 counter <- 1
 all_datasets <- c()
 experiment_traits <- c()
 for (exp in experiments) {
   dataset <- paste0("dataset", counter)
   
+<<<<<<< HEAD
   for(i in seq_along(samples[samples$EXP == exp, ]$treatment)){
     if(samples[samples$EXP == exp, ]$ID[i] %in% bad_samples){
       cat("[*] Ommiting sample ", samples[samples$EXP == exp, ]$ID[i],"\n")
@@ -99,6 +117,13 @@ for (exp in experiments) {
       experiment_traits <- c(experiment_traits,samples[samples$EXP == exp, ]$treatment[i])
     }
   }
+=======
+  for (col in samples[samples$EXP == exp, ]$treatment) {
+    all_datasets <- c(all_datasets, dataset)
+    experiment_traits <- c(experiment_traits,col)
+  }
+  
+>>>>>>> 48e081fba501e60fd014aea29438ba80e4e67575
   counter <- counter + 1
 }
 
@@ -391,6 +416,11 @@ graph <- delete_edges(graph, E(graph)[weight < 0.2])
 V(graph)$name <- moduleGenes
 
 # Plot
+<<<<<<< HEAD
 #plot(graph, vertex.label=V(graph)$name, vertex.size=5, edge.width=E(graph)$weight*2,
 #     main="Gene-level Network for Blue Module (ME1)")
+=======
+plot(graph, vertex.label=V(graph)$name, vertex.size=5, edge.width=E(graph)$weight*2,
+     main="Gene-level Network for Blue Module (ME1)")
+>>>>>>> 48e081fba501e60fd014aea29438ba80e4e67575
 

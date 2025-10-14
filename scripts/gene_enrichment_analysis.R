@@ -16,7 +16,7 @@ gseaplot(kegg_enrich,
          title = "KEGG Pathway Enrichment Analysis",
          top_term = 10)
 
-ecokd <- read.csv("results/deseq2_rsem/tables/EcoKD1_Eco1KD_B8_vs_control_B8_results.csv")
+ecokd <- read.csv("results/deseq2_rsem_sortmerna/tables/EcoKD1_Eco1KD_B8_vs_control_B8_results.csv")
 
 ecokd <- ecokd[ecokd$padj <= 0.05, ]
   
@@ -41,6 +41,7 @@ kegg_enrich <- enrichKEGG(gene = ecokd_up$KO,
                           qvalueCutoff = 0.05)
 
 dotplot(kegg_enrich)
+enrichplot(kegg_enrich)
 
 # KO enrichment down-regulated 
 kegg_enrich <- enrichKEGG(gene = ecokd_down$KO,
