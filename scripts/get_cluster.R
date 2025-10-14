@@ -16,12 +16,12 @@ options(stringsAsFactors=FALSE)
 # cls.file <- file.path("./data/hvaep_cell_type_to_gene_cluster_table_just_gos.tsf")
 #cls.file <- file.path("./data/hvaep_cell_type_to_gene_cluster_table.tsf")
 #hvaep_cell_type_to_gene_cluster_table.tsf
-cls.file <- file.path("./results/processedData/normalized_mean_sortmerna/hvaep_cell_type_to_gene_cluster_table.tsf")
-gof <- file.path("./results/processedData/normalized_mean_sortmerna/hvaep_uniprot_kegg_go.tsf")
+cls.file <- file.path("./results/processedData/normalized_mean_final/hvaep_cell_type_to_gene_cluster_table.tsf")
+gof <- file.path("./results/processedData/normalized_mean_final/hvaep_uniprot_kegg_go.tsf")
 
 ## OUTPUT
-out.path <- file.path("./results/processedData/normalized_mean_sortmerna/")
-fig.path <- file.path("./results/figures/normalized_mean_sortmerna/")
+out.path <- file.path("./results/processedData/normalized_mean_final/")
+fig.path <- file.path("./results/figures/normalized_mean_final/")
 
 ### PARAMETERS
 ## add super classes
@@ -71,8 +71,8 @@ if ( add.super ) {
   super[["C_EC_foot"]] <- c(grep("Ec_BasalDisk", cids, value=TRUE), grep("Ec_Peduncle", cids, value=TRUE))
   super[["C_EN_foot"]] <- grep("En_Foot", cids, value=TRUE)
   super[["C_tentacle"]] <- grep("_Tentacle$", cids, value=TRUE)
-  #super[["L_foot"]] <- c(grep("Ec_BasalDisk", cids, value=TRUE), 
-  #                       grep("Ec_Peduncle", cids, value=TRUE), grep("En_Foot", cids, value=TRUE))
+  super[["L_foot"]] <- c(grep("Ec_BasalDisk", cids, value=TRUE), 
+                         grep("Ec_Peduncle", cids, value=TRUE), grep("En_Foot", cids, value=TRUE))
   super[["C_head"]] <- grep("Head$", cids, value=TRUE)
   
   ## stem cell lineages # first level of hierachy

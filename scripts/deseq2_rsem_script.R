@@ -3,11 +3,11 @@ library(DESeq2)
 library(DEGreport)
 library(limma)
 # define input file paths
-sample_file <- file.path("data/rsem_counts_after_sortmerna/sample_descriptions.csv") # "data/rsem_counts/sample_descriptions_without_temp_oxo.csv"
-controls_file <- file.path("data/rsem_counts_after_sortmerna/sample_controls.csv") # "data/rsem_counts/sample_controls_without_temp_oxo.csv"
+sample_file <- file.path("data/rsem_counts_final/sample_descriptions.csv") # "data/rsem_counts/sample_descriptions_without_temp_oxo.csv"
+controls_file <- file.path("data/rsem_counts_final/sample_controls.csv") # "data/rsem_counts/sample_controls_without_temp_oxo.csv"
 
-input_dir <- "data/rsem_counts_after_sortmerna/"
-output_dir <- "results/deseq2_rsem_sortmerna/"
+input_dir <- "data/rsem_counts_final/"
+output_dir <- "results/deseq2_rsem_final/"
 
 # settings
 count_threshold <- 20
@@ -25,7 +25,7 @@ for(exp in experiments){
   files <- file.path(input_dir, exp, paste0(expSamples$ID,".genes.results"))
   names(files) <- expSamples$ID
   # check if all files exist
-  all(file.exists(files))
+  all(file.exists(files)) # files[!file.exists(files)]
   # recommended tximport vignette cmd
   txi.rsem <- tximport(files, type="rsem", txIn = FALSE, txOut = FALSE)
   # create sampleTable for deseq2

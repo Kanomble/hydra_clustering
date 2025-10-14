@@ -14,18 +14,18 @@ options(stringsAsFactors=FALSE)
 ### PATHS ###
 
 ## input paths
-resp <- file.path("results/deseq2_rsem_sortmerna/") ## deseq2 results
-figp <- file.path("results/figures/normalized_mean_sortmerna/")
-datp <- file.path("results/processedData/normalized_mean_sortmerna/")
+resp <- file.path("results/deseq2_rsem_final/") ## deseq2 results
+figp <- file.path("results/figures/normalized_mean_final/")
+datp <- file.path("results/processedData/normalized_mean_final/")
 
-expf <- file.path("data/rsem_counts_after_sortmerna/sample_descriptions.csv")
-rawf <- file.path("results/deseq2_rsem_sortmerna/hydra_all_counts_t_to_g.tsv") #result/deseq2_rsem/ # _t_to_g
-datf <- file.path("results/deseq2_rsem_sortmerna/hydra_all_deseq2_lg2_t_to_g.tsv") # 
-pvlf <- file.path("results/deseq2_rsem_sortmerna/hydra_all_deseq2_pvalues_t_to_g.tsv") # _t_to_g
+expf <- file.path("data/rsem_counts_final/sample_descriptions.csv")
+rawf <- file.path("results/deseq2_rsem_final/hydra_all_counts_t_to_g.tsv") #result/deseq2_rsem/ # _t_to_g
+datf <- file.path("results/deseq2_rsem_final/hydra_all_deseq2_lg2_t_to_g.tsv") # 
+pvlf <- file.path("results/deseq2_rsem_final/hydra_all_deseq2_pvalues_t_to_g.tsv") # _t_to_g
 
 ## annotation
-cltf <- file.path("./results/processedData/normalized_mean_sortmerna/hvaep_clustering_table.tsv") #cltf <- file.path(datp,"siebert19_clustering_table.tsv") # cell types
-gof <- file.path("./results/processedData/normalized_mean_sortmerna/hvaep_uniprot_kegg_go.tsf") #gof <- file.path(datp,"aepLRv2_kegg_go.tsv") # KEGG/GO
+cltf <- file.path("./results/processedData/normalized_mean_final/hvaep_clustering_table.tsv") #cltf <- file.path(datp,"siebert19_clustering_table.tsv") # cell types
+gof <- file.path("./results/processedData/normalized_mean_final/hvaep_uniprot_kegg_go.tsf") #gof <- file.path(datp,"aepLRv2_kegg_go.tsv") # KEGG/GO
 
 #anf <- file.path("./data/new_mapping/") #anf <- file.path(dath, "originalData", "aepLRv2_pfam_sp_nr.tsv") # Siebert et al
 

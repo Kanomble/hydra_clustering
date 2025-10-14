@@ -7,8 +7,8 @@ library(igraph)
 library(RColorBrewer)
 
 # define input file paths
-sample_file <- file.path("data/rsem_counts_after_sortmerna/sample_descriptions.csv") # "data/rsem_counts/sample_descriptions_without_temp_oxo.csv"
-controls_file <- file.path("data/rsem_counts_after_sortmerna/sample_controls.csv") # "data/rsem_counts/sample_controls_without_temp_oxo.csv"
+sample_file <- file.path("data/rsem_counts_final/sample_descriptions.csv") # "data/rsem_counts/sample_descriptions_without_temp_oxo.csv"
+controls_file <- file.path("data/rsem_counts_final/sample_controls.csv") # "data/rsem_counts/sample_controls_without_temp_oxo.csv"
 
 input_dir <- "data/rsem_counts_after_sortmerna/"
 output_dir <- "results/deseq2_rsem_sortmerna/"

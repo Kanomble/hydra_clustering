@@ -8,10 +8,10 @@ use.dedup <- TRUE
 ### PATHS: adapt for run on different machine! ###
 
 ## input paths
-datp <-  file.path("results/deseq2_rsem_sortmerna/tables/")
+datp <-  file.path("results/deseq2_rsem_final/tables/")
 
 ## create output path for results
-outp <- file.path("results/deseq2_rsem_sortmerna/")
+outp <- file.path("results/deseq2_rsem_final/")
 dir.create(outp, showWarnings=FALSE)
 outfile <- file.path(outp,"hydra_all_deseq2_lg2.tsv")
 outfilep <- file.path(outp,"hydra_all_deseq2_pvalues.tsv")
@@ -54,7 +54,7 @@ write.table(cbind.data.frame(ID=rownames(pdat),pdat), row.names=FALSE,
             quote=FALSE, file=outfilep, sep="\t")
 
 ## collect raw data
-rawp <- file.path("data/rsem_counts/")
+rawp <- file.path("data/rsem_counts_final/")
 files <- list.files(pattern="genes.results$", recursive=TRUE, path=rawp)
 # files <- files[grep("kallistoCountsDedup",files, invert=!use.dedup)]
 
